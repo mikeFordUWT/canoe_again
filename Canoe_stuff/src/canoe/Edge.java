@@ -37,5 +37,8 @@ public class Edge implements Comparable<Edge>{
         return toReturn;
     }
     
-    
+    @Override
+    public String toString(){
+    	return String.valueOf(nextNode.getElement());
+    }
 }
