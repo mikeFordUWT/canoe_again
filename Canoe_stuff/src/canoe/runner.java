@@ -3,7 +3,7 @@ package canoe;
 import java.util.ArrayList;
 
 public class runner {
-	private static int SIZE = 3;
+	private static int SIZE = 10;
 
 	public static void main(String[] args) {
 		Algorithm alg = new Algorithm(SIZE);
@@ -11,7 +11,7 @@ public class runner {
 		if(SIZE < 20){
 			printMatrix(randomM);
 			int[][] path = alg.minCost(randomM);
-			printMatrix(path);
+//			printMatrix(path);
 //			printFirst(path);
 			System.out.println("Dynamic Min Subset: ");
 			ArrayList<Integer> canoes = alg.whichCanoes(path);
@@ -26,9 +26,13 @@ public class runner {
 		}
 		
 		alg.bForceCanoes(randomM);
-		Graph g = alg.createStationGraph(randomM);
-		int r = alg.recurse(randomM, randomM.length-1);
-		System.out.println("Divide and Conquer: \nCost: " + r);
+		
+//		int x = alg.divideAndConquer(randomM, randomM.length);
+//		System.out.println(x);
+		
+		int x = alg.minRecursion(randomM);
+		System.out.println(x);
+	
 		
 	}
 
@@ -41,6 +45,8 @@ public class runner {
 		System.out.println("]");
 		
 	}
+	
+	
 	
 	private static void printMatrix(int[][] inputMatrix){
 		int width = inputMatrix.length;
