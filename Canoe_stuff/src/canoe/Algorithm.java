@@ -280,9 +280,12 @@ public class Algorithm {
 		System.out.println();
 	}
 	
-	public int recurse(int last){
+	public int recurse(int[][] inputMatrix, int destination){
 	int toReturn =0;
-	//TODO
+	int last = inputMatrix.length-1;
+	for(int j = 0; j<inputMatrix.length; j++){
+		toReturn = Math.min(inputMatrix[0][inputMatrix.length-1], recurse(inputMatrix,last-j) + inputMatrix[last-j][last]);
+	}
 	return toReturn;
 }
 
