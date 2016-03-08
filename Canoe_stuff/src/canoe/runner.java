@@ -27,8 +27,6 @@ public class runner {
 		
 		alg.bForceCanoes(randomM);
 		Graph g = alg.createStationGraph(randomM);
-		ArrayList<Node> nodes= alg.depthFirst(g);
-		System.out.println(nodes.toString());
 		
 	}
 
