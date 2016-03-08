@@ -2,6 +2,7 @@ package canoe;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Algorithm {
@@ -280,6 +281,25 @@ public class Algorithm {
 	}
 	
 
+	public ArrayList<Node> depthFirst(Graph g){
+		ArrayList<Node> toReturn = new ArrayList<Node>();
+		ArrayList<Node> visited = new ArrayList<Node>();
+		Node first = g.getFirst();
+		Stack<Node> s = new Stack<Node>();
+		
+		s.push(first);
+		while(!s.isEmpty()){
+			Node temp = s.pop();
+			if(!visited.contains(temp)){
+				toReturn.add(temp);
+				visited.add(temp);
+				for(Edge e: temp.getEdges()){
+					s.push(e.getNextNode());
+				}
+			}
+		}
+		return toReturn;
+	}
 
 	
 }

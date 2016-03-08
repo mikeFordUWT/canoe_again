@@ -1,10 +1,11 @@
 package canoe;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 
 public class Node implements Comparable<Node>{
-	private LinkedList<Edge> myEdges; 
+	private PriorityQueue<Edge> myEdges; 
 	private Integer myElement;
 	private int totalEdges = 0;
     
@@ -13,7 +14,7 @@ public class Node implements Comparable<Node>{
 
 	public Node(int element){
 		myElement = element;
-		myEdges = new LinkedList<Edge>();
+		myEdges = new PriorityQueue<Edge>();
         minDistance = 99999;
 
 	}
@@ -27,7 +28,7 @@ public class Node implements Comparable<Node>{
 		return myElement;
 	}
 
-	public LinkedList<Edge> getEdges(){
+	public PriorityQueue<Edge> getEdges(){
 		return myEdges;
 	}
 
@@ -62,5 +63,10 @@ public class Node implements Comparable<Node>{
             toReturn =0;
         }
         return toReturn;
+    }
+    
+    @Override
+    public String toString(){
+    	return String.valueOf(myElement);
     }
 }
