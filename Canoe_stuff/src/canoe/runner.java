@@ -3,12 +3,13 @@ package canoe;
 import java.util.ArrayList;
 
 public class runner {
-	private static int SIZE = 10;
+	private static int SIZE = 1000;
 
 	public static void main(String[] args) {
 		Algorithm alg = new Algorithm(SIZE);
 		int[][] randomM = alg.randomMatrixGenerate();
-		if(SIZE < 20){
+		long timer = System.currentTimeMillis();
+		if(SIZE < 1801){
 			printMatrix(randomM);
 			int[][] path = alg.minCost(randomM);
 //			printMatrix(path);
@@ -24,14 +25,18 @@ public class runner {
 			System.out.println("Dynamic Min Subset: ");
 			System.out.println(canoes.toString());
 		}
-		
-		alg.bForceCanoes(randomM);
-		
+		timer = System.currentTimeMillis() - timer;
+		System.out.println(timer);
+		//alg.bForceCanoes(randomM);
+
+		System.out.println();
+		System.out.println("Recursive cost: ");
 //		int x = alg.divideAndConquer(randomM, randomM.length);
 //		System.out.println(x);
+
+		//int x = alg.minRecursion(randomM);
 		
-		int x = alg.minRecursion(randomM);
-		System.out.println(x);
+		System.out.println();
 	
 		
 	}
