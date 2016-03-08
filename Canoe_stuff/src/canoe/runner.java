@@ -3,7 +3,7 @@ package canoe;
 import java.util.ArrayList;
 
 public class runner {
-	private static int SIZE = 4;
+	private static int SIZE = 3;
 
 	public static void main(String[] args) {
 		Algorithm alg = new Algorithm(SIZE);
@@ -28,7 +28,7 @@ public class runner {
 		alg.bForceCanoes(randomM);
 		Graph g = alg.createStationGraph(randomM);
 		int r = alg.recurse(randomM, randomM.length-1);
-		System.out.println(r);
+		System.out.println("Divide and Conquer: \nCost: " + r);
 		
 	}
 
