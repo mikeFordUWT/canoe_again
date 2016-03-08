@@ -167,7 +167,9 @@ public class Algorithm {
 		return graph;
 	}
 
-	public void bForceCanoes(int[][] inputMatrix) {
+
+
+	public int bForceCanoes(int[][] inputMatrix) {
 
 		Graph graph = createStationGraph(inputMatrix);
 		// generate a matrix of the powerset
@@ -182,7 +184,7 @@ public class Algorithm {
 		int curCost = 0;
 		int[] minSubset = new int[A.length+2];
 		int minCost = INF;
-		
+
 		for(int i = 0; i < subsets.length; i++){
 			for(int j = 0; j < curSubset.length; j++){
 				if (j == 0){
@@ -197,7 +199,7 @@ public class Algorithm {
 					curSubset[j] = subsets[i][j-1];
 				}
 			}
-			
+
 			//check the cost of that subset, make it the minsubset if neccessary
 			curCost = 0;
 			int p;
@@ -216,21 +218,21 @@ public class Algorithm {
 					//System.out.println(inputMatrix[p][r]);
 				}
 			}
-			
+
 			if (curCost <= minCost){
 				minCost = curCost;
 				for(int u = 0; u < minSubset.length; u++){
 					minSubset[u] = curSubset[u];
 				}
 			}
-			
-//			System.out.print("CUR SUBSET: [ "  );
-//			for(int q = 0; q<curSubset.length; q++){
-//				System.out.print(curSubset[q]+ " ");
-//			}
-//			System.out.println("]");
-//			System.out.println("COST "+ curCost);
-//			System.out.println();	
+
+			//			System.out.print("CUR SUBSET: [ "  );
+			//			for(int q = 0; q<curSubset.length; q++){
+			//				System.out.print(curSubset[q]+ " ");
+			//			}
+			//			System.out.println("]");
+			//			System.out.println("COST "+ curCost);
+			//			System.out.println();	
 		}
 		System.out.println("Brute Force Min Subset: ");
 		System.out.print("MIN SUBSET: [ "  );
@@ -240,6 +242,7 @@ public class Algorithm {
 		System.out.println("]");
 		System.out.println("COST "+ minCost);
 		System.out.println();	
+		return minCost;
 	}
 
 	/**
@@ -247,28 +250,28 @@ public class Algorithm {
 	 */
 	private int[][] getSubsets(int[] A){
 		int[][] toReturn = new int[(int) Math.pow(2, A.length)][A.length];
-		
+
 		for(int i = 0; i < Math.pow(2,  A.length); i++){
 			int j = 0;
 			StringBuilder binary = new StringBuilder(Integer.toBinaryString(i));
-	        for(int k = binary.length(); k < A.length; k++) {
-	            binary.insert( 0, '0' );
-	        }
-	        for(int r = 0; r<binary.length(); r++){
-	        	if(binary.charAt(r) == '1'){
-	        		toReturn[i][j] = A[r];
-	        	}
-		        j++;
-	        }
+			for(int k = binary.length(); k < A.length; k++) {
+				binary.insert( 0, '0' );
+			}
+			for(int r = 0; r<binary.length(); r++){
+				if(binary.charAt(r) == '1'){
+					toReturn[i][j] = A[r];
+				}
+				j++;
+			}
 		}
 		//printRectangularMatrix(toReturn, A.length);
 		return toReturn;
 	}
-	
+
 	private static void printRectangularMatrix(int[][] inputMatrix, int size){
 		int rows = inputMatrix.length;
 		int cols = size;
-		
+
 		for(int i = 0; i < rows; i ++){
 			System.out.print("[");
 			for(int j = 0; j < cols; j++){
@@ -279,39 +282,52 @@ public class Algorithm {
 		}
 		System.out.println();
 	}
-	
-	public int recurse(int[][] inputMatrix, int destination){
-	int toReturn =0;
-	int last = inputMatrix.length-1;
-	for(int j = 0; j<inputMatrix.length; j++){
-		toReturn = Math.min(inputMatrix[0][inputMatrix.length-1], recurse(inputMatrix,last-j) + inputMatrix[last-j][last]);
+
+
+
+	public int divideAndConquer(int[][] inputMatrix, int size){
+		int min = 99999;
+		for (int i =2; i<= size; i++){
+			int[][] sub  = subMatrix(inputMatrix, i);
+			min = bForceCanoes(sub);
+			
+		}
+		return min;
 	}
-	return toReturn;
-}
 
-//	public ArrayList<Node> depthFirst(Graph g){
-//		ArrayList<Node> toReturn = new ArrayList<Node>();
-//		ArrayList<Node> visited = new ArrayList<Node>();
-//		Node first = g.getFirst();
-//		Stack<Node> s = new Stack<Node>();
-//		
-//		s.push(first);
-//		while(!s.isEmpty()){
-//			Node temp = s.pop();
-//			if(!visited.contains(temp)){
-//				toReturn.add(temp);
-//				visited.add(temp);
-//				for(Edge e: temp.getEdges()){
-//					s.push(e.getNextNode());
-//				}
-//			}
-//		}
-//		return toReturn;
-//	}
-//	
+	private int[][] subMatrix(int[][] inputMatrix, int newSize){
+		int[][] cloneSub = new int[newSize][newSize];
+		for(int i = 0; i< newSize; i++){
+			for(int j =0; j<newSize; j++){
+				cloneSub[i][j] = inputMatrix[i][j]; 
+			}
+		}
+		return cloneSub;
+
+	}
+	public int minRecursion(int[][] input){
+		return shortestPathRecur(input, 0, input.length-1);
+	}
 	
 	
-
-
+	private int shortestPathRecur(int[][] inputMatrix, int start, int end){
+		 if(start == end || start+1 == end){
+			 return inputMatrix[start][end];
+		 }
+		 
+		 int min  = inputMatrix[start][end];
+		 
+		 for(int i = start +1; i<end; i++){
+			 int c = shortestPathRecur(inputMatrix, start, i) + shortestPathRecur(inputMatrix, i, end);
+			 if(c<min){
+				 min =c;
+			 }
+			 
+		 }
+		 return min;
+	}
 	
+	private int minimum(int a, int b, int c){
+		return Math.min(a, Math.min(b, c));
+	}
 }
