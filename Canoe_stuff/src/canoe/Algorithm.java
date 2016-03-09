@@ -2,14 +2,11 @@ package canoe;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Algorithm {
 	private int mySize;
 	private int max;
-	private Graph g;
-	private static int MIN = 1;
 	private static int INF = 99999;
 
 	public Algorithm(int size) {
@@ -283,32 +280,9 @@ public class Algorithm {
 		System.out.println();
 	}
 
-
-
-	public int divideAndConquer(int[][] inputMatrix, int size){
-		int min = 99999;
-		for (int i =2; i<= size; i++){
-			int[][] sub  = subMatrix(inputMatrix, i);
-			min = bForceCanoes(sub);
-			
-		}
-		return min;
-	}
-
-	private int[][] subMatrix(int[][] inputMatrix, int newSize){
-		int[][] cloneSub = new int[newSize][newSize];
-		for(int i = 0; i< newSize; i++){
-			for(int j =0; j<newSize; j++){
-				cloneSub[i][j] = inputMatrix[i][j]; 
-			}
-		}
-		return cloneSub;
-
-	}
 	public int minRecursion(int[][] input){
 		return shortestPathRecur(input, 0, input.length-1);
 	}
-	
 	
 	private int shortestPathRecur(int[][] inputMatrix, int start, int end){
 		 if(start == end || start+1 == end){
@@ -325,9 +299,5 @@ public class Algorithm {
 			 
 		 }
 		 return min;
-	}
-	
-	private int minimum(int a, int b, int c){
-		return Math.min(a, Math.min(b, c));
 	}
 }

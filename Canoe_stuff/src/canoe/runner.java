@@ -3,7 +3,7 @@ package canoe;
 import java.util.ArrayList;
 
 public class runner {
-	private static int SIZE = 1000;
+	private static int SIZE = 10;
 
 	public static void main(String[] args) {
 		Algorithm alg = new Algorithm(SIZE);
@@ -40,18 +40,6 @@ public class runner {
 	
 		
 	}
-
-	
-	private static void printFirst(int[][] inputMatrix){
-		System.out.print("[");
-		for(int i = 0; i <inputMatrix.length; i++){
-			System.out.print(inputMatrix[0][i]+", ");
-		}
-		System.out.println("]");
-		
-	}
-	
-	
 	
 	private static void printMatrix(int[][] inputMatrix){
 		int width = inputMatrix.length;
