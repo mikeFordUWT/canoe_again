@@ -1,6 +1,16 @@
 package canoe;
 
-import java.util.LinkedList;
+/**
+ * A Node class for use in a Graph.
+ * 
+  * @author Mike Ford and Matt Seto
+ * 
+ * GROUP 3
+ * TCSS 343 B
+ * UW Tacoma 
+ * Winter 2016
+ */
+
 import java.util.PriorityQueue;
 
 

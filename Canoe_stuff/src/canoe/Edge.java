@@ -1,5 +1,15 @@
 package canoe;
 
+/**
+ * An Edge class for use with nodes, to connect a graph.
+ *
+  * @author Mike Ford and Matt Seto
+ * 
+ * GROUP 3
+ * TCSS 343 B
+ * UW Tacoma 
+ * Winter 2016
+ */
 
 public class Edge implements Comparable<Edge>{
     

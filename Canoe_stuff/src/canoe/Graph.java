@@ -1,8 +1,17 @@
 package canoe;
-import java.util.ArrayList;
+
+/**
+ * A Graph structure for storing stations.
+ * 
+  * @author Mike Ford and Matt Seto
+ * 
+ * GROUP 3
+ * TCSS 343 B
+ * UW Tacoma 
+ * Winter 2016
+ */
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Queue;
 
 public class Graph {
 	private Node startNode;

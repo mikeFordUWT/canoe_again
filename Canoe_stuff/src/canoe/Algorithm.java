@@ -1,5 +1,15 @@
 package canoe;
 
+/**
+ * An Algorithm class that house our Dynamic, Brute Force and Divide and Conquer algorithms.
+ * 
+ * @author Mike Ford and Matt Seto
+ * 
+ * GROUP 3
+ * TCSS 343 B
+ * UW Tacoma 
+ * Winter 2016
+ */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,6 +30,12 @@ public class Algorithm {
 		}
 	}
 
+	/**
+	 * Generate a Random Matrix that is strictly increasing, left to right
+	 * and strictly decreasing from top to bottom.
+	 * 
+	 * @return int[][] that is a random matrix with the above characteristics
+	 */
 	public int[][] randomMatrixGenerate() {
 		int[][] A = new int[mySize][mySize];
 		for (int i = 0; i < mySize; i++) {
@@ -165,7 +181,12 @@ public class Algorithm {
 	}
 
 
-
+	/**
+	 * A brute force algorithm to find out the minimum cost to get to the last station.
+	 * 
+	 * @param inputMatrix
+	 * @return int that is the minimum cost to get to the last station
+	 */
 	public int bForceCanoes(int[][] inputMatrix) {
 
 		Graph graph = createStationGraph(inputMatrix);
@@ -222,28 +243,24 @@ public class Algorithm {
 					minSubset[u] = curSubset[u];
 				}
 			}
-
-			//			System.out.print("CUR SUBSET: [ "  );
-			//			for(int q = 0; q<curSubset.length; q++){
-			//				System.out.print(curSubset[q]+ " ");
-			//			}
-			//			System.out.println("]");
-			//			System.out.println("COST "+ curCost);
-			//			System.out.println();	
 		}
-		System.out.println("Brute Force Min Subset: ");
-		System.out.print("MIN SUBSET: [ "  );
-		for(int q = 0; q<minSubset.length; q++){
-			System.out.print(minSubset[q]+ " ");
-		}
-		System.out.println("]");
-		System.out.println("COST "+ minCost);
+//		System.out.println("Brute Force Min Subset: ");
+//		System.out.print("MIN SUBSET: [ "  );
+//		for(int q = 0; q<minSubset.length; q++){
+//			System.out.print(minSubset[q]+ " ");
+//		}
+//		System.out.println("]");
+		System.out.println("Brute Force MinCost:\n"+ minCost);
 		System.out.println();	
 		return minCost;
 	}
 
+	
 	/**
-	 * A function to return the powerset of a given array
+	 * A function to return the powerset of a given array.
+	 * 
+	 * @param A
+	 * @return int[][] the powerset of an array.
 	 */
 	private int[][] getSubsets(int[] A){
 		int[][] toReturn = new int[(int) Math.pow(2, A.length)][A.length];
@@ -261,30 +278,29 @@ public class Algorithm {
 				j++;
 			}
 		}
-		//printRectangularMatrix(toReturn, A.length);
 		return toReturn;
 	}
 
-	private static void printRectangularMatrix(int[][] inputMatrix, int size){
-		int rows = inputMatrix.length;
-		int cols = size;
-
-		for(int i = 0; i < rows; i ++){
-			System.out.print("[");
-			for(int j = 0; j < cols; j++){
-				System.out.print(String.format("%4d", inputMatrix[i][j]));
-				if(j < inputMatrix[i].length - 1) System.out.print(", ");
-			}
-			System.out.println("]");
-		}
-		System.out.println();
-	}
-
-	public int minRecursion(int[][] input){
-		return shortestPathRecur(input, 0, input.length-1);
+	/**
+	 * Public method for calling the divide and conquer algorithm.
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public int divideAndConquer(int[][] input){
+		return minPathRecur(input, 0, input.length-1);
 	}
 	
-	private int shortestPathRecur(int[][] inputMatrix, int start, int end){
+	/**
+	 * Recursive divide and conquer algorithm for finding the minimum cost to get to the last station. 
+	 * This method will return the minimum cost to get from any station to any station.
+	 * .
+	 * @param inputMatrix
+	 * @param start station
+	 * @param end station
+	 * @return int that is the minimimum cost of getting to the last station
+	 */
+	private int minPathRecur(int[][] inputMatrix, int start, int end){
 		 if(start == end || start+1 == end){
 			 return inputMatrix[start][end];
 		 }
@@ -292,7 +308,7 @@ public class Algorithm {
 		 int min  = inputMatrix[start][end];
 		 
 		 for(int i = start +1; i<end; i++){
-			 int c = shortestPathRecur(inputMatrix, start, i) + shortestPathRecur(inputMatrix, i, end);
+			 int c = minPathRecur(inputMatrix, start, i) + minPathRecur(inputMatrix, i, end);
 			 if(c<min){
 				 min =c;
 			 }
